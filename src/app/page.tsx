@@ -8,11 +8,13 @@ export default function Home() {
     const [, setSubscription] = useState<PushSubscription | null>(null);
 
     useEffect(() => {
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("/sw.js").then((reg) => {
-                console.log("✅ Service Worker registrado!", reg);
-            });
-        }
+      console.log("🔔 Permissão de notificação:", Notification.permission);
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").then((reg) => {
+            console.log("✅ Service Worker registrado!", reg);
+            reg.update(); // 🚀 Força atualização
+        });
+      }
     }, []);
 
     const subscribeUser = async () => {
@@ -28,7 +30,7 @@ export default function Home() {
         }
 
         const registration = await navigator.serviceWorker.ready;
-        const vapidPublicKey = `${vapidPublicEnvKey}`; // Pegue no Azure
+        const vapidPublicKey = vapidPublicEnvKey; // Pegue no Azure
 
         const subscriptionData = await registration.pushManager.subscribe({
             userVisibleOnly: true,

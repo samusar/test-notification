@@ -29,6 +29,7 @@ function generateSasToken(): string {
 export async function POST(req: Request) {
     try {
         const { title, message } = await req.json();
+        console.log("🚀 Enviando payload:", { title, message });
 
         const payload = JSON.stringify({ notification: { title, body: message } });
 

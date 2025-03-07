@@ -1,5 +1,5 @@
 self.addEventListener("push", (event) => {
-  // Extrai os dados enviados (se houver)
+  console.log("📩 Notificação recebida:", event.data ? event.data.text() : "Sem dados");
   const data = event.data ? event.data.json() : { title: "Notificação", message: "Nova mensagem" };
 
   event.waitUntil(
